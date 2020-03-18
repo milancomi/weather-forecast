@@ -3,17 +3,58 @@
 const weatherData = {
     tempUnit: "C",
     windSpeedUnit: "m/s",
-    days: [
-    { day: "Mon", temp: 22, windDirection: "north-east", windSpeed: 10 , type:"sunny" },
-    { day: "Tue", temp: 14, windDirection: "north-west", windSpeed: 14, type: "rainy" },
-    { day: "Wed", temp: 17, windDirection: "south-east", windSpeed: 13, type: "cloudy" },
-    { day: "Thu", temp: 15, windDirection: "south-east", windSpeed: 12, type: "cloudy" },
-    { day: "Fri", temp: 23, windDirection: "north-east", windSpeed: 14, type: "sunny" },
-    { day: "Sat", temp: 18, windDirection: "north-west", windSpeed: 13, type: "sunny" },
-    { day: "Sun", temp: 28, windDirection: "north-east", windSpeed: 22, type: "rainy" }
+    days: [{
+            day: "Mon",
+            temp: 22,
+            windDirection: "north-east",
+            windSpeed: 10,
+            type: "sunny"
+        },
+        {
+            day: "Tue",
+            temp: 14,
+            windDirection: "north-west",
+            windSpeed: 14,
+            type: "rainy"
+        },
+        {
+            day: "Wed",
+            temp: 17,
+            windDirection: "south-east",
+            windSpeed: 13,
+            type: "cloudy"
+        },
+        {
+            day: "Thu",
+            temp: 15,
+            windDirection: "south-east",
+            windSpeed: 12,
+            type: "cloudy"
+        },
+        {
+            day: "Fri",
+            temp: 23,
+            windDirection: "north-east",
+            windSpeed: 14,
+            type: "sunny"
+        },
+        {
+            day: "Sat",
+            temp: 18,
+            windDirection: "north-west",
+            windSpeed: 13,
+            type: "sunny"
+        },
+        {
+            day: "Sun",
+            temp: 28,
+            windDirection: "north-east",
+            windSpeed: 22,
+            type: "rainy"
+        }
 
 
-    
+
     ]
 }
 
@@ -24,8 +65,8 @@ const toggleClass = (id) => {
     console.log(element);
     if (element.className) {
         element.className = ''
-       let btn = document.getElementById(id);
-       btn.innerText = "show less";
+        let btn = document.getElementById(id);
+        btn.innerText = "show less";
     } else {
         element.className = 'hidden'
         let btn = document.getElementById(id);
@@ -33,94 +74,97 @@ const toggleClass = (id) => {
     }
 }
 
-function cToF(celsius) 
-{
-  var cTemp = celsius;
-  var cToFahr = cTemp * 9 / 5 + 32;
-  return cToFahr;
+function cToF(celsius) {
+    var cTemp = celsius;
+    var cToFahr = cTemp * 9 / 5 + 32;
+    return cToFahr;
 
 }
 
-const convertTemp = (id,celsius)=>{
+// za konvertovanje temperature unazad nisam imao vremena
+// ubacio bih hidden polje i koristio ga kao flag (C or F)
+// na osnovu kog bih dodelio njegovu vrednost funkciji
+// i na osnovu uslova (if ili swich) vratio trazenu vrednos
+
+const convertTemp = (id, celsius) => {
     let element = document.getElementById(`temperature-${id}`);
-    
     let fahrenheit = cToF(celsius);
-   
+
     element.innerHTML = "Average temperature is: <b>" + fahrenheit + " °F</b>";
-    
+
 }
 
 // Function for render data from collection
 
-function fillDate(){
+function fillData() {
 
     var arrayLength = weatherData.days.length;
 
-    for ( i= 0; i< arrayLength; i++)
-    {
-        data= document.createElement('div');
-        data.className='card';
-        data.id = 'card-'+ i;
+    for (i = 0; i < arrayLength; i++) {
+
+        var data = document.createElement('div');
+        data.className = 'card';
+        data.id = 'card-' + i;
 
         // Main Data in card
-        mainData = document.createElement('div');
-        mainData.className=weatherData.days[i].type;
+        var mainData = document.createElement('div');
+        mainData.className = weatherData.days[i].type;
 
-        dataDay = document.createElement('div');
-        dataDay.className='day';
+        var dataDay = document.createElement('div');
+        dataDay.className = 'day';
         dataDay.innerHTML = weatherData.days[i].day;
 
-        dataTemp = document.createElement('div');
-        dataTemp.className='temperature';
-        dataTemp.id = 'temperature-'+i;
-        dataTemp.innerHTML = "Average temperature is:<b> " + weatherData.days[i].temp +" °" + weatherData.tempUnit+"</b>";
-        
-        dataType = document.createElement('div');
-        dataType.className="day-type";
+        var dataTemp = document.createElement('div');
+        dataTemp.className = 'temperature';
+        dataTemp.id = 'temperature-' + i;
+        dataTemp.innerHTML = "Average temperature is:<b> " + weatherData.days[i].temp + " °" + weatherData.tempUnit + "</b>";
+
+        var dataType = document.createElement('div');
+        dataType.className = "day-type";
         dataType.innerHTML = weatherData.days[i].type;
 
         //Divider 
-        divider = document.createElement('hr');
-        divider2 = document.createElement('hr');
-        divider2.className= "divider2";
-        divider.className= "divider";
+        var divider = document.createElement('hr');
+        var divider2 = document.createElement('hr');
+        divider2.className = "divider2";
+        divider.className = "divider";
 
         // HIDDEN ELEMENTS in card
-        hiddenData = document.createElement('div');
+        var hiddenData = document.createElement('div');
         hiddenData.className = 'hidden';
         hiddenData.id = `hidden-${i}`;
 
-        dataWindDirection= document.createElement('div');
-        dataWindDirection.className='wind_direction';
-        dataWindDirection.innerHTML = "Wind direction: "+ weatherData.days[i].windDirection;
+        var dataWindDirection = document.createElement('div');
+        dataWindDirection.className = 'wind_direction';
+        dataWindDirection.innerHTML = "Wind direction: " + weatherData.days[i].windDirection;
 
-       dataWindSpeed = document.createElement('div');
-       dataWindSpeed.className='wind_speed';
-       dataWindSpeed.innerHTML = "Wind speed: " + weatherData.days[i].windSpeed + " " +weatherData.windSpeedUnit;
+        var dataWindSpeed = document.createElement('div');
+        dataWindSpeed.className = 'wind_speed';
+        dataWindSpeed.innerHTML = "Wind speed: " + weatherData.days[i].windSpeed + " " + weatherData.windSpeedUnit;
 
-       dataWindImage= document.createElement('div');
-       dataWindImage.className = weatherData.days[i].windDirection;
-
-
-       // Show/Hide Button in card
-       btnShow = document.createElement('button');
-       btnShow.type = "button";
-       btnShow.id = i;
-       btnShow.className='showBtn';
-       btnShow.innerHTML = 'show advanced';
-       btnShow.onclick = (i) => toggleClass(i.target.id);
+        var dataWindImage = document.createElement('div');
+        dataWindImage.className = weatherData.days[i].windDirection;
 
 
-       // convert Celsius/Farenh button
-       btnConvert = document.createElement('button');
-       btnConvert.type="button";
-       btnConvert.id = i;
-       btnConvert.className="convertTempBtn";
-       btnConvert.innerHTML = '°C to °F';
-       celsius = weatherData.days[i].temp;
-       btnConvert.onclick = (i) =>convertTemp(i.target.id,celsius);
+        // Show/Hide Button in card
+        var btnShow = document.createElement('button');
+        btnShow.type = "button";
+        btnShow.id = i;
+        btnShow.className = 'showBtn';
+        btnShow.innerHTML = 'show advanced';
+        btnShow.onclick = (i) => toggleClass(i.target.id);
 
-       // Merge 
+
+        // convert Celsius/Farenh button
+        var btnConvert = document.createElement('button');
+        btnConvert.type = "button";
+        btnConvert.id = i;
+        btnConvert.className = "convertTempBtn";
+        btnConvert.innerHTML = '°C to °F';
+        celsius = weatherData.days[i].temp;
+        btnConvert.onclick = (i) => convertTemp(i.target.id, celsius);
+
+        // Merge 
         mainData.appendChild(dataDay);
         mainData.appendChild(dataType);
         mainData.appendChild(dataTemp);
@@ -141,6 +185,3 @@ function fillDate(){
     }
 
 }
-
-
-
