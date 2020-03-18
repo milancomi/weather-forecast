@@ -81,11 +81,6 @@ function cToF(celsius) {
 
 }
 
-// za konvertovanje temperature unazad nisam imao vremena
-// ubacio bih hidden polje i koristio ga kao flag (C or F)
-// na osnovu kog bih dodelio njegovu vrednost funkciji
-// i na osnovu uslova (if ili swich) vratio trazenu vrednos
-
 const convertTemp = (id, celsius) => {
     let element = document.getElementById(`temperature-${id}`);
     let fahrenheit = cToF(celsius);
@@ -94,6 +89,13 @@ const convertTemp = (id, celsius) => {
 
 }
 
+
+const convertWindSpeed = (id, speed)=>{
+    let element = document.getEelementById(`wind-speed-${id}`);
+    let m =  speed;
+    km = m * 3.6;
+    console.log(km);
+}
 // Function for render data from collection
 
 function fillData() {
@@ -140,6 +142,7 @@ function fillData() {
 
         var dataWindSpeed = document.createElement('div');
         dataWindSpeed.className = 'wind_speed';
+        dataWindSpeed.id = `wind-speed-${i}`;
         dataWindSpeed.innerHTML = "Wind speed: " + weatherData.days[i].windSpeed + " " + weatherData.windSpeedUnit;
 
         var dataWindImage = document.createElement('div');
@@ -164,6 +167,7 @@ function fillData() {
         celsius = weatherData.days[i].temp;
         btnConvert.onclick = (i) => convertTemp(i.target.id, celsius);
 
+
         // Merge 
         mainData.appendChild(dataDay);
         mainData.appendChild(dataType);
@@ -180,6 +184,8 @@ function fillData() {
         data.appendChild(divider);
         data.appendChild(btnShow);
         data.appendChild(btnConvert);
+
+        
 
         document.getElementById('data-container').appendChild(data);
     }
