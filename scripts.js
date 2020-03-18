@@ -29,10 +29,26 @@ const toggleClass = (id) => {
     } else {
         element.className = 'hidden'
         let btn = document.getElementById(id);
-        btn.innerText = "show more";
+        btn.innerText = "show advanced";
     }
 }
 
+function cToF(celsius) 
+{
+  var cTemp = celsius;
+  var cToFahr = cTemp * 9 / 5 + 32;
+  return cToFahr;
+
+}
+
+const convertTemp = (id,celsius)=>{
+    let element = document.getElementById(`temperature-${id}`);
+    
+    let fahrenheit = cToF(celsius);
+   
+    element.innerHTML = "Average temperature is: <b>" + fahrenheit + " °F</b>";
+    
+}
 
 // Function for render data from collection
 
@@ -56,7 +72,8 @@ function fillDate(){
 
         dataTemp = document.createElement('div');
         dataTemp.className='temperature';
-        dataTemp.innerHTML = "Temperature: " + weatherData.days[i].temp +" °" + weatherData.tempUnit;
+        dataTemp.id = 'temperature-'+i;
+        dataTemp.innerHTML = "Average temperature is:<b> " + weatherData.days[i].temp +" °" + weatherData.tempUnit+"</b>";
         
         dataType = document.createElement('div');
         dataType.className="day-type";
@@ -90,10 +107,18 @@ function fillDate(){
        btnShow.type = "button";
        btnShow.id = i;
        btnShow.className='showBtn';
-       btnShow.innerHTML = 'show more';
+       btnShow.innerHTML = 'show advanced';
        btnShow.onclick = (i) => toggleClass(i.target.id);
 
 
+       // convert Celsius/Farenh button
+       btnConvert = document.createElement('button');
+       btnConvert.type="button";
+       btnConvert.id = i;
+       btnConvert.className="convertTempBtn";
+       btnConvert.innerHTML = '°C to °F';
+       celsius = weatherData.days[i].temp;
+       btnConvert.onclick = (i) =>convertTemp(i.target.id,celsius);
 
        // Merge 
         mainData.appendChild(dataDay);
@@ -110,6 +135,7 @@ function fillDate(){
         data.appendChild(hiddenData);
         data.appendChild(divider);
         data.appendChild(btnShow);
+        data.appendChild(btnConvert);
 
         document.getElementById('data-container').appendChild(data);
     }
